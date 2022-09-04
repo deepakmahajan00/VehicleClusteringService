@@ -1,0 +1,260 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is the developer documentation for online food project",
+      "version": "1.0.0",
+      "title": "Documentation for Online Food Project"
+    },
+    "host": "localhost:18010",
+    "tags": [
+      {
+        "name": "health",
+        "description": "Check the health of service"
+      },
+      {
+        "name": "vehicle",
+        "description": "Get all vehicle apis"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/health": {
+        "get": {
+          "tags": [
+            "health"
+          ],
+          "summary": "Simple call to check heath of service",
+          "responses": {
+            "200": {
+              "description": "Successful call"
+            }
+          }
+        }
+      },
+      "/vehicles/available": {
+        "get": {
+          "tags": [
+            "vehicle"
+          ],
+          "summary": "Find available vehicle",
+          "description": "Returns a available vehicle",
+          "operationId": "getAvailableVehicle",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/GetVehiclesResponse"
+              }
+            },
+            "404": {
+              "description": "Could not find any vehicle at this location"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+
+      "/vehicles/not-available": {
+        "get": {
+          "tags": [
+            "vehicle"
+          ],
+          "summary": "Find not available vehicle",
+          "description": "Returns a not available vehicle",
+          "operationId": "getNotAvailableVehicle",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/GetVehiclesResponse"
+              }
+            },
+            "404": {
+              "description": "Could not find any vehicle at this location"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+
+      "/vehicles/type/{type}": {
+        "get": {
+          "tags": [
+            "vehicle"
+          ],
+          "summary": "Find vehicle by type",
+          "description": "Returns a vehicle based on provided type",
+          "operationId": "getVehicleByType",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "type",
+              "in": "path",
+              "description": "vehicle type",
+              "required": true,
+              "type": "string",
+              "example": "ebicycle_paris"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/GetVehiclesResponse"
+              }
+            },
+            "404": {
+              "description": "Could not find any vehicle at this location"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+
+      "/vehicles/pricing/{pricingPlan}": {
+        "get": {
+          "tags": [
+            "vehicle"
+          ],
+          "summary": "Find vehicle by pricing",
+          "description": "Returns a vehicle based on provided pricing",
+          "operationId": "getBikesByPricingPlan",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "pricingPlan",
+              "in": "path",
+              "description": "pricing plan",
+              "required": true,
+              "type": "string",
+              "example": "bike-standard-pricing-paris"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/GetVehiclesResponse"
+              }
+            },
+            "404": {
+              "description": "Could not find any vehicle at this location"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "RidesRequest": {
+        "type": "object",
+        "properties": {
+          "start_long": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The initial longitude of the ride"
+          },
+          "start_lat": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The initial latitude of the ride"
+          },
+          "end_long": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The final longitude of the ride"
+          },
+          "end_lat": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The final latitude of the ride"
+          },
+          "rider_name": {
+            "type": "string",
+            "description": "The name of the rider"
+          },
+          "driver_name": {
+            "type": "string",
+            "description": "The name of the rider"
+          },
+          "driver_vehicle": {
+            "type": "string",
+            "description": "The name of the rider"
+          }
+        }
+      },
+      "VehicleResponse": {
+        "type": "object",
+        "properties": {
+            "bikes": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                      "bike_id": {
+                          "type": "string",
+                          "description": "Bike Id"
+                        },
+                      "is_reserved": {
+                        "type": "boolean",
+                        "description": "Is Reserved"
+                      },
+                      "vehicle_type_id": {
+                        "type": "string",
+                        "description": "Vehicle Type"
+                      },
+                      "pricing": {
+                        "type": "boolean",
+                        "description": "Is Reserved"
+                      }
+                    }
+                }
+            }
+            
+        }
+      },
+      "OrderRequest": {
+        "type": "object",
+        "properties": {
+            "resturant_name": {
+                "type": "string",
+                "required": true,
+                "example": "Ulu Ocean Grill and Sushi Lounge"
+            },
+            "dishes": {
+              "type": "array",
+              "required": true,
+              "example": [
+                "Postum cereal coffee",
+                "DRY LIGHT IMPORTED WINE"
+              ]
+            }
+            
+        }
+      },
+      "GetVehiclesResponse": {
+        "type": "array",
+        "$ref": "#/definitions/VehicleResponse"
+      }
+    }
+  }

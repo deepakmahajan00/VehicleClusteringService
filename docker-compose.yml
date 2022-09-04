@@ -1,0 +1,14 @@
+version: '2'
+services:
+  vehicle-app:
+    image: deepakmahajan00/node-vehicle-clustring-app:latest
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - 18010:18010
+    stdin_open: true
+    networks:
+      - node-developer
+
+networks:
+  node-developer:

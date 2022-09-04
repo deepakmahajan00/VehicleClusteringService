@@ -1,17 +1,17 @@
-const gbfsService = require('../services/GbfsService');
+const bikesService = require('../services/BikesService');
 class Vehicle {
     async findAvailableBikes(availability) {
-        let result = await gbfsService.getAvailableVechile(availability);
+        let result = await bikesService.getAvailableVechile(availability);
         return [result];
     }
 
     async findByVehicleType(type) {
-        let result = await gbfsService.getBikesByType(type);
+        let result = await bikesService.getBikesByType(type);
         return [result];
     }
 
     async findByPricingPlan(pricingPlan) {
-        let result = await gbfsService.getBikesByPricingPlan(pricingPlan);
+        let result = await bikesService.getBikesByPricingPlan(pricingPlan);
         return [result];
     }
 }

@@ -69,7 +69,7 @@ class ManageBikesService extends GbfsService {
     {
         let stations = await this.getStationInfomation(stationName);
         let intersectionResult = [];
-        if (stations.length > 0) {
+        if (Object.keys(stations).length > 0) {
             let stationStatus = await this.getStationStatus();
             stationStatus = stationStatus.data['stations'];
             for (let x in stations) {

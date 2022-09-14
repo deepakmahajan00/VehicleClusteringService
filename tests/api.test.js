@@ -120,7 +120,7 @@ describe('GET /pricinig/:plan', () => {
             .set('Content-Type', 'application/json')
             .expect(200)
             .expect((res) => {
-                assert.equal(JSON.stringify(res.body), '{"total_records":0,"bikes":{}}');
+                assert.equal(JSON.stringify(res.body), '{"total_records":0,"bikes":[]}');
             })
             .end(done);
     });

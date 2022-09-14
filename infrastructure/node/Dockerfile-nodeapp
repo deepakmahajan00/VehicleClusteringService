@@ -1,4 +1,4 @@
-FROM node-vehicle-clustring-app
+FROM deepakmahajan00/node-vehicle-clustring-app
 
 # Create app directory
 WORKDIR /usr/src/app

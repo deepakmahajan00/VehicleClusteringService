@@ -6,7 +6,7 @@ class GbfsService {
         return await this.getData("https://data-sharing.tier-services.io/tier_paris/gbfs/2.2/free-bike-status");
     }
 
-    async getBikeStationInformation(){
+    async getStationInformation(){
         return await this.getData("https://data-sharing.tier-services.io/tier_paris/gbfs/2.2/station-information");
     }
 

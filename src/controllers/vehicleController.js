@@ -4,7 +4,6 @@ const getAvailableVehicle = async (req, res, next) => {
     try {
         let [vehicle, _] = await Vehicle.findAvailableBikes(false);
         let totalRecords = Object.keys(vehicle).length;
-        console.log('in getAvailableVehicle');
         res.status(200).json({'total_records': totalRecords, vehicle});
     } catch (error) {
         console.log(error);
@@ -53,9 +52,41 @@ const getVehicleByPricingPlan = async (req, res, next) => {
     }
 };
 
+const getStationDetailByName = async (req, res, next) => {
+    try {
+        let stationName = req.params.stationName;
+        if (stationName.length === 0 || typeof stationName == 'undefined') {
+            res.status(500).json({'error_message': 'Bad request param. Station name input is missing'});
+        }
+        let [stations, _] = await Vehicle.findStationByName(stationName);
+        let totalRecords = Object.keys(stations).length;
+        res.status(200).json({'total_records': totalRecords, 'stations' : stations});
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
+const getStationStationByName = async (req, res, next) => {
+    try {
+        let stationName = req.params.stationName;
+        if (stationName.length === 0 || typeof stationName == 'undefined') {
+            res.status(500).json({'error_message': 'Bad request param. Station name input is missing'});
+        }
+        let [stations, _] = await Vehicle.findStationStatusByName(stationName);
+        let totalRecords = Object.keys(stations).length;
+        res.status(200).json({'total_records': totalRecords, 'stations' : stations});
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
 module.exports = {
     getAvailableVehicle,
     getNotAvailableVehicle,
     getVehicleByType,
     getVehicleByPricingPlan,
+    getStationDetailByName,
+    getStationStationByName,
 };
